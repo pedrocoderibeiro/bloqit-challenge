@@ -15,7 +15,6 @@ const postBloq = async (body: BloqRequest) => {
     const data = await fs.promises.readFile(filePath, "utf8");
     const bloqList: Bloq[] = JSON.parse(data);
 
-    // Generate a UUID
     const uuid = uuidv4();
     const { address, title } = body;
     const newBloq = { id: uuid, address, title };

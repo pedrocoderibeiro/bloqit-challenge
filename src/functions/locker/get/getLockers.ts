@@ -28,7 +28,6 @@ const getLockers = async (
       status !== undefined
     ) {
       lockerList = lockerList.filter((locker) => {
-        console.log("bati aqui1");
         return (
           locker.bloqId === bloqId &&
           locker.status === status &&
@@ -36,39 +35,27 @@ const getLockers = async (
         );
       });
       return lockerList;
-    }
-
-    if (
+    } else if (
       bloqId !== undefined &&
       transformOccupied === undefined &&
       status !== undefined
     ) {
-      console.log("bati aqui2");
       lockerList = lockerList.filter((locker) => {
         return locker.bloqId === bloqId && locker.status === status;
       });
       return lockerList;
-    }
-
-    if (
+    } else if (
       bloqId === undefined &&
       transformOccupied !== undefined &&
       status !== undefined
     ) {
       lockerList = lockerList.filter((locker) => {
-        console.log(
-          locker.isOccupied === transformOccupied && locker.status === status,
-          locker.status,
-          status as LockerStatus
-        );
         return (
           locker.isOccupied === transformOccupied && locker.status === status
         );
       });
       return lockerList;
-    }
-
-    if (
+    } else if (
       bloqId !== undefined &&
       transformOccupied !== undefined &&
       status === undefined
@@ -79,9 +66,7 @@ const getLockers = async (
         );
       });
       return lockerList;
-    }
-
-    if (
+    } else if (
       bloqId == undefined &&
       transformOccupied === undefined &&
       status !== undefined
@@ -90,9 +75,7 @@ const getLockers = async (
         return locker.status === status;
       });
       return lockerList;
-    }
-
-    if (
+    } else if (
       bloqId == undefined &&
       transformOccupied !== undefined &&
       status === undefined
@@ -101,12 +84,38 @@ const getLockers = async (
         return locker.isOccupied === transformOccupied;
       });
       return lockerList;
+    } else {
+      return lockerList ?? [];
     }
-
-    return lockerList ?? [];
   } catch (error) {
     throw new Error(`Error reading file : ${error}`);
   }
 };
+
+function filterLockers(
+  lockerList: Locker[],
+  bloqId: string,
+  status: LockerStatus,
+  transformOccupied: boolean
+) {
+  return lockerList.filter((locker) => {
+    // Define initial condition to always return true
+    let condition = true;
+
+    // Add conditions based on provided parameters
+    if (bloqId !== undefined) {
+      condition = condition && locker.bloqId === bloqId;
+    }
+    if (status !== undefined) {
+      condition = condition && locker.status === status;
+    }
+    if (transformOccupied !== undefined) {
+      condition = condition && locker.isOccupied === transformOccupied;
+    }
+
+    // Return true only if all conditions are met
+    return condition;
+  });
+}
 
 export { getLockers };
