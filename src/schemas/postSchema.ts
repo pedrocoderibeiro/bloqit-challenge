@@ -12,6 +12,11 @@ const postLockerRequest = z.object({
   isOccupied: z.boolean(),
 });
 
+const postRentRequest = z.object({
+  lockerId: z.string().uuid(),
+  weight: z.number().nonnegative(),
+});
+
 type BloqRequest = z.infer<typeof postBloqRequest>;
 type LockerRequest = z.infer<typeof postLockerRequest>;
 

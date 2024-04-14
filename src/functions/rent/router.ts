@@ -4,5 +4,6 @@ import { RentController } from "./controller";
 const rentRouter = express.Router();
 
 rentRouter.get("/:id", RentController.getRent);
+rentRouter.get("/", RentController.getRent);
 
 export { rentRouter };

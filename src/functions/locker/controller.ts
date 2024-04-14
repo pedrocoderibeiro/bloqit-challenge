@@ -16,7 +16,7 @@ class lockerController {
   };
   getLockers = async (req: Request, res: Response) => {
     const queryParams = req.query as unknown as LockerQueryParams;
-    console.log(req.query);
+
     const lockers = await getLockers(queryParams);
     res.send(lockers);
   };

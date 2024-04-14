@@ -5,6 +5,13 @@ import { QueryParams } from "src/types/queryParams.type";
 
 dotenv.config();
 
+function applyBloqFilters(
+  bloqArray: Bloq[],
+  filters: ((item: Bloq) => boolean)[]
+): Bloq[] {
+  return filters.reduce((result, filter) => result.filter(filter), bloqArray);
+}
+
 const getBloqs = async (params: QueryParams): Promise<Bloq[] | null> => {
   const filePath: string | undefined = process.env.FILE_BLOQ_PATH;
   if (!filePath) {
@@ -17,13 +24,14 @@ const getBloqs = async (params: QueryParams): Promise<Bloq[] | null> => {
     const data = await fs.promises.readFile(filePath, "utf8");
     let bloqList: Bloq[] = JSON.parse(data);
     if (title !== undefined || address !== undefined) {
-      bloqList = bloqList.filter(
+      bloqList = applyBloqFilters(bloqList, [
         (bloq) =>
-          (bloq.title.toLowerCase().includes(title?.toLowerCase()) &&
-            bloq.address.toLowerCase().includes(address?.toLowerCase())) ||
-          bloq.title.toLowerCase().includes(title?.toLowerCase()) ||
-          bloq.address.toLowerCase().includes(address?.toLowerCase())
-      );
+          title === void 0 ||
+          bloq.title.toLowerCase().includes(title?.toLocaleLowerCase()),
+        (bloq) =>
+          address === void 0 ||
+          bloq.address.toLowerCase().includes(address?.toLocaleLowerCase()),
+      ]);
     }
 
     return bloqList ?? [];
