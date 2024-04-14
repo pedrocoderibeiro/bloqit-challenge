@@ -12,6 +12,7 @@ const getRents = async (query: RentQueryParams): Promise<Rent[]> => {
 
   try {
     const data = await fs.promises.readFile(filePath, "utf8");
+    let rentList: Rent[] = JSON.parse(data);
   } catch (err) {
     throw new Error(`Error reading file : ${err}`);
   }
