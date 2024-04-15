@@ -7,7 +7,7 @@ import { getLockers } from "./get/getLockers";
 import postLocker from "./post/postLocker";
 import putLocker from "./put/putLocker";
 import deleteLocker from "./delete/deleteLocker";
-import { GetError, LockerError } from "@enums/error";
+import { GetError, DeleteLockerError, PutLockerError } from "@enums/error";
 import { Locker } from "@entities/index";
 
 class lockerController {
@@ -47,13 +47,39 @@ class lockerController {
   };
   createLocker = async (req: Request, res: Response) => {
     const { body } = req;
-    const locker = await postLocker(body);
-    res.send(locker);
+    const response = await postLocker(body);
+    res.send(response.data);
   };
   updateLocker = async (req: Request, res: Response) => {
     const { id } = req.params;
     const { body } = req;
     const response = await putLocker(id, body);
+
+    if (!response.success) {
+      if (
+        typeof response.data === "string" &&
+        Object.values(PutLockerError).includes(response.data as PutLockerError)
+      ) {
+        const errorType = response.data as PutLockerError;
+
+        switch (errorType) {
+          case PutLockerError.LockerNotFound:
+            res.status(404).send("Locker not found");
+            break;
+          case PutLockerError.BloqNotFound:
+            res
+              .status(409)
+              .send("You need to unassociate rents from this locker");
+            break;
+          default:
+            break;
+        }
+        return;
+      } else {
+        console.error("Unexpected error data type:", response.data);
+        res.status(500).send("Internal Server Error"); // Or send a generic error response
+      }
+    }
     res.send(response);
   };
   deleteLocker = async (req: Request, res: Response) => {
@@ -63,15 +89,17 @@ class lockerController {
     if (!response.success) {
       if (
         typeof response.data === "string" &&
-        Object.values(LockerError).includes(response.data as LockerError)
+        Object.values(DeleteLockerError).includes(
+          response.data as DeleteLockerError
+        )
       ) {
-        const errorType = response.data as LockerError;
+        const errorType = response.data as DeleteLockerError;
 
         switch (errorType) {
-          case LockerError.NotFound:
+          case DeleteLockerError.NotFound:
             res.status(404).send("Locker not found");
             break;
-          case LockerError.Conflict:
+          case DeleteLockerError.Conflict:
             res
               .status(409)
               .send("You need to unassociate rents from this locker");

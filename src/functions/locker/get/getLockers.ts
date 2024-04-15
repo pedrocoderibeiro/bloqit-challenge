@@ -10,7 +10,7 @@ dotenv.config();
 
 const getLockers = async (
   params: LockerQueryParams
-): Promise<ApiResponse<Locker[] | null>> => {
+): Promise<ApiResponse<Locker[]>> => {
   const filePath: string | undefined = process.env.FILE_LOCKER_PATH;
   if (!filePath) {
     throw new Error("File lockers path is not defined in the .env file");

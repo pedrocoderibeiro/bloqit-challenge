@@ -1,9 +1,7 @@
-enum LockerError {
+enum DeleteLockerError {
   NotFound = "not-found",
   Conflict = "conflict",
 }
-
-enum BloqError {}
 
 enum PutRentError {
   RentNotFound = "rent-not-found",
@@ -11,8 +9,13 @@ enum PutRentError {
   Conflict = "conflict",
 }
 
+enum PutLockerError {
+  BloqNotFound = "bloq-not-found",
+  LockerNotFound = "locker-not-found",
+}
+
 enum GetError {
   NotFound = "not-found",
 }
 
-export { LockerError, GetError, PutRentError };
+export { DeleteLockerError, GetError, PutRentError, PutLockerError };

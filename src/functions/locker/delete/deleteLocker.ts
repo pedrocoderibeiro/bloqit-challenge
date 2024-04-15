@@ -1,5 +1,5 @@
 import { Locker, Rent } from "@entities/index";
-import { LockerError } from "@enums/error";
+import { DeleteLockerError } from "@enums/error";
 import * as dotenv from "dotenv";
 import * as fs from "fs";
 import { ApiResponse } from "src/types/response.type";
@@ -7,7 +7,7 @@ dotenv.config();
 
 const deleteLocker = async (
   id: string
-): Promise<ApiResponse<Locker | LockerError>> => {
+): Promise<ApiResponse<Locker | DeleteLockerError>> => {
   const filePath: string | undefined = process.env.FILE_LOCKER_PATH;
   const fileRentPath: string | undefined = process.env.FILE_RENT_PATH;
   if (!filePath) {
@@ -24,7 +24,7 @@ const deleteLocker = async (
     const lockerIndex = lockerList.findIndex((locker) => locker.id === id);
 
     if (lockerIndex === -1) {
-      return { success: false, data: LockerError.NotFound }; // Return null for Express to handle 404
+      return { success: false, data: DeleteLockerError.NotFound }; // Return null for Express to handle 404
     }
 
     const locker = lockerList[lockerIndex]!;
@@ -37,7 +37,7 @@ const deleteLocker = async (
     );
 
     if (associatedRents.length > 0) {
-      return { success: false, data: LockerError.Conflict };
+      return { success: false, data: DeleteLockerError.Conflict };
     }
     const deletedLocker = lockerList.splice(lockerIndex, 1)[0]; // Remove bloq and return it
 

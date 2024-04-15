@@ -2,14 +2,14 @@ import { applyFilters } from "@validators/filter";
 import { Bloq } from "../../../entities";
 import * as dotenv from "dotenv";
 import * as fs from "fs";
-import { QueryParams } from "src/types/queryParams.type";
 import { ApiResponse } from "src/types/response.type";
+import { BloqQueryParams } from "src/schemas/getSchema";
 
 dotenv.config();
 
 const getBloqs = async (
-  params: QueryParams
-): Promise<ApiResponse<Bloq[] | null>> => {
+  params: BloqQueryParams
+): Promise<ApiResponse<Bloq[]>> => {
   const filePath: string | undefined = process.env.FILE_BLOQ_PATH;
   if (!filePath) {
     throw new Error("File bloq path is not defined in the .env file");
