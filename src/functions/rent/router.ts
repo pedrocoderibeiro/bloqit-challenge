@@ -5,5 +5,6 @@ const rentRouter = express.Router();
 
 rentRouter.get("/:id", RentController.getRent);
 rentRouter.get("/", RentController.getRent);
+rentRouter.post("/", RentController.createRent);
 
 export { rentRouter };

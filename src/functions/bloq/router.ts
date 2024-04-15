@@ -12,5 +12,6 @@ bloqRouter.post(
   validateSchema(postBloqRequest),
   BloqController.createBloq
 );
+bloqRouter.put("/:id", BloqController.updateBloq);
 
 export { bloqRouter };
