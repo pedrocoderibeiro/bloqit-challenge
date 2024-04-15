@@ -1,10 +1,12 @@
 import { NextFunction, Request, Response } from "express";
-import { ZodError, ZodSchema, z } from "zod";
+import { RefinementCtx, ZodError, ZodSchema, z } from "zod";
 import { ParsedQs } from "qs";
 import { LockerRequest } from "src/schemas/postSchema";
 import * as dotenv from "dotenv";
 import * as fs from "fs";
 import { Bloq } from "@entities/bloq.model";
+import { RentStatus } from "@enums/enum";
+
 dotenv.config();
 
 const validateSchema = <T>(schema: ZodSchema<T>) => {

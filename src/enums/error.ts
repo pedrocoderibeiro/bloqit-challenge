@@ -5,10 +5,14 @@ enum LockerError {
 
 enum BloqError {}
 
-enum RentError {}
+enum PutRentError {
+  RentNotFound = "rent-not-found",
+  LockerNotFound = "locker-not-found",
+  Conflict = "conflict",
+}
 
 enum GetError {
   NotFound = "not-found",
 }
 
-export { LockerError, GetError };
+export { LockerError, GetError, PutRentError };

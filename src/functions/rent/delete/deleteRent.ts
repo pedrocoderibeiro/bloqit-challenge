@@ -1,10 +1,13 @@
 import { Rent } from "@entities/rent.model";
+import { GetError } from "@enums/error";
 import * as dotenv from "dotenv";
 import * as fs from "fs";
 import { ApiResponse } from "src/types/response.type";
 dotenv.config();
 
-const deleteRent = async (id: string): Promise<ApiResponse<Rent>> => {
+const deleteRent = async (
+  id: string
+): Promise<ApiResponse<Rent | GetError>> => {
   const filePath: string | undefined = process.env.FILE_RENT_PATH;
   if (!filePath) {
     throw new Error("File rent path is not defined in the .env file");
@@ -17,10 +20,10 @@ const deleteRent = async (id: string): Promise<ApiResponse<Rent>> => {
     const rentIndex = rentlist.findIndex((rent) => rent.id === id);
 
     if (rentIndex === -1) {
-      return null; // Return null for Express to handle 404
+      return { success: false, data: GetError.NotFound };
     }
 
-    const deletedRent = rentlist.splice(rentIndex, 1)[0]; // Remove bloq and return it
+    const deletedRent = rentlist.splice(rentIndex, 1)[0];
 
     await fs.promises.writeFile(
       filePath,

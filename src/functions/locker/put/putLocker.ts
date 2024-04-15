@@ -3,12 +3,13 @@ import { PutLockerRequest } from "src/schemas/putSchema";
 import * as dotenv from "dotenv";
 import * as fs from "fs";
 import { ApiResponse } from "src/types/response.type";
+import { GetError } from "@enums/error";
 dotenv.config();
 
 const putLocker = async (
   id: string,
   body: PutLockerRequest
-): Promise<ApiResponse<Locker>> => {
+): Promise<ApiResponse<Locker | GetError>> => {
   const filePath: string | undefined = process.env.FILE_LOCKER_PATH;
   if (!filePath) {
     throw new Error("File locker path is not defined in the .env file");
@@ -21,7 +22,7 @@ const putLocker = async (
     const lockerIndex = lockerList.findIndex((bloq) => bloq.id === id);
 
     if (lockerIndex === -1) {
-      return null; // controller will return 404
+      return { success: false, data: GetError.NotFound }; // controller will return 404
     }
     const updatedLocker = { ...lockerList[lockerIndex], ...body }; // Merge updates
     lockerList[lockerIndex] = updatedLocker;

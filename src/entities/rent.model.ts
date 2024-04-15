@@ -6,6 +6,9 @@ type Rent = {
   weight: number;
   size: RentSize;
   status: RentStatus;
+  createdAt?: Date;
+  droppedOffAt?: Date;
+  pickedUpAt?: Date;
 };
 
 export type { Rent };

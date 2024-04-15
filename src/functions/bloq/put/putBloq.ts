@@ -3,12 +3,13 @@ import { PutBloqRequest } from "src/schemas/putSchema";
 import * as dotenv from "dotenv";
 import * as fs from "fs";
 import { ApiResponse } from "src/types/response.type";
+import { GetError } from "@enums/error";
 dotenv.config();
 
 const putBloq = async (
   id: string,
   body: PutBloqRequest
-): Promise<ApiResponse<Bloq>> => {
+): Promise<ApiResponse<Bloq | GetError>> => {
   const filePath: string | undefined = process.env.FILE_BLOQ_PATH;
   if (!filePath) {
     throw new Error("File bloq path is not defined in the .env file");
@@ -21,7 +22,7 @@ const putBloq = async (
     const bloqIndex = bloqList.findIndex((bloq) => bloq.id === id);
 
     if (bloqIndex === -1) {
-      return { success: false, data: null }; // controller will return 404
+      return { success: false, data: GetError.NotFound };
     }
     const updatedBloq = { ...bloqList[bloqIndex], ...body }; // Merge updates
     bloqList[bloqIndex] = updatedBloq;
