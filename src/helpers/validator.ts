@@ -44,7 +44,6 @@ const validateQueryParams = (schema: z.ZodObject<any, any>) => {
   };
 };
 
-//Custom Validator for Locker to check if the associated Bloq exists
 const validateBloq = async (
   req: Request,
   res: Response,
@@ -64,45 +63,15 @@ const validateBloq = async (
     const bloqList: Bloq[] = JSON.parse(data);
     const bloq = bloqList.find((bloq) => bloq.id === bloqId) ?? null;
 
-    console.log(bloq, data);
-
     if (!bloq) {
       return res.status(404).send({ error: "Bloq not found" });
     }
 
-    next(); // Call next() if bloq is found
+    next();
   } catch (error) {
-    console.error(error); // Log the error for debugging
-    return res.status(500).send({ error: "Internal Server Error" }); // Generic error response
+    console.error(error);
+    return res.status(500).send({ error: "Internal Server Error" });
   }
-
-  /*return async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const { bloqId } = req.body as LockerRequest;
-      const filePath: string | undefined = process.env.FILE_BLOQ_PATH;
-
-      if (!filePath) {
-        return res
-          .status(500)
-          .send({ error: "File bloq path is not defined in the .env file" });
-      }
-
-      const data = await fs.promises.readFile(filePath, "utf8");
-      const bloqList: Bloq[] = JSON.parse(data);
-      const bloq = bloqList.find((bloq) => bloq.id === bloqId) ?? null;
-
-      console.log(bloq, data);
-
-      if (!bloq) {
-        return res.status(404).send({ error: "Bloq not found" });
-      }
-
-      next(); // Call next() if bloq is found
-    } catch (error) {
-      console.error(error); // Log the error for debugging
-      return res.status(500).send({ error: "Internal Server Error" }); // Generic error response
-    }
-  };*/
 };
 
 export { validateSchema, validateQueryParams, validateBloq };

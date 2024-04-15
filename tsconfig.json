@@ -7,7 +7,7 @@
     "baseUrl": "./" /* Specify the base directory to resolve non-relative module names. */,
     "paths": {
       "@entities/*": ["src/entities/*"],
-      "@validators/*": ["src/validators/*"],
+      "@validators/*": ["src/helpers/*"],
       "@enums/*": ["src/enums/*"]
     },
     "outDir": "./dist",

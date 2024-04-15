@@ -3,9 +3,12 @@ import { v4 as uuidv4 } from "uuid";
 import * as dotenv from "dotenv";
 import * as fs from "fs";
 import { Locker } from "@entities/locker.model";
+import { ApiResponse } from "src/types/response.type";
 
 dotenv.config();
-const postLocker = async (body: LockerRequest) => {
+const postLocker = async (
+  body: LockerRequest
+): Promise<ApiResponse<Locker>> => {
   const filePath: string | undefined = process.env.FILE_LOCKER_PATH;
   if (!filePath) {
     throw new Error("File locker path is not defined in the .env file");
@@ -39,7 +42,7 @@ const postLocker = async (body: LockerRequest) => {
       }
     );
 
-    return newLocker;
+    return { success: true, data: newLocker };
   } catch (err) {
     throw new Error(`Error processing request: ${err}`);
   }

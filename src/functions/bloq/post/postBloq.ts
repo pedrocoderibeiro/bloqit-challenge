@@ -3,10 +3,11 @@ import { BloqRequest } from "src/schemas/postBloqRequestSchema";
 import { v4 as uuidv4 } from "uuid";
 import * as dotenv from "dotenv";
 import * as fs from "fs";
+import { ApiResponse } from "src/types/response.type";
 
 dotenv.config();
 
-const postBloq = async (body: BloqRequest) => {
+const postBloq = async (body: BloqRequest): Promise<ApiResponse<Bloq>> => {
   const filePath: string | undefined = process.env.FILE_BLOQ_PATH;
   if (!filePath) {
     throw new Error("File bloq path is not defined in the .env file");
@@ -31,7 +32,7 @@ const postBloq = async (body: BloqRequest) => {
         console.log("Data added successfully!");
       }
     );
-    return newBloq;
+    return { success: true, data: newBloq };
   } catch (err) {
     throw new Error(`Error reading file : ${err}`);
   }

@@ -4,7 +4,7 @@ import {
   validateBloq,
   validateQueryParams,
   validateSchema,
-} from "../../validators/validator";
+} from "../../helpers/validator";
 import { lockerQueryParams } from "../../schemas/getLockerSchema";
 import { postLockerRequest } from "src/schemas/postSchema";
 
@@ -32,5 +32,6 @@ lockerRouter.post(
     }
   }
 );
-
+lockerRouter.put("/:id", LockerController.updateLocker);
+lockerRouter.delete("/:id", LockerController.deleteLocker);
 export { lockerRouter };

@@ -1,14 +1,10 @@
-import { Bloq } from "../../../entities";
-import { PutBloqRequest } from "src/schemas/putSchema";
+import { Bloq } from "@entities/bloq.model";
 import * as dotenv from "dotenv";
 import * as fs from "fs";
 import { ApiResponse } from "src/types/response.type";
 dotenv.config();
 
-const putBloq = async (
-  id: string,
-  body: PutBloqRequest
-): Promise<ApiResponse<Bloq>> => {
+const deleteBloq = async (id: string): Promise<ApiResponse<Bloq>> => {
   const filePath: string | undefined = process.env.FILE_BLOQ_PATH;
   if (!filePath) {
     throw new Error("File bloq path is not defined in the .env file");
@@ -21,10 +17,10 @@ const putBloq = async (
     const bloqIndex = bloqList.findIndex((bloq) => bloq.id === id);
 
     if (bloqIndex === -1) {
-      return { success: false, data: null }; // controller will return 404
+      return null; // Return null for Express to handle 404
     }
-    const updatedBloq = { ...bloqList[bloqIndex], ...body }; // Merge updates
-    bloqList[bloqIndex] = updatedBloq;
+
+    const deletedBloq = bloqList.splice(bloqIndex, 1)[0]; // Remove bloq
 
     await fs.promises.writeFile(
       filePath,
@@ -32,11 +28,11 @@ const putBloq = async (
       "utf8"
     );
 
-    return { success: false, data: updatedBloq };
+    return { success: true, data: deletedBloq };
   } catch (err) {
-    throw new Error(`Error updating bloq : ${err}`);
+    throw new Error(`Error deleting bloq : ${err}`);
   }
 };
 
-export { putBloq };
-export default putBloq;
+export { deleteBloq };
+export default deleteBloq;

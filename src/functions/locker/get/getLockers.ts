@@ -3,12 +3,14 @@ import { Locker } from "../../../entities";
 import * as dotenv from "dotenv";
 import * as fs from "fs";
 import { LockerQueryParams } from "src/schemas/getLockerSchema";
+import { applyFilters } from "@validators/filter";
+import { ApiResponse } from "src/types/response.type";
 
 dotenv.config();
 
 const getLockers = async (
   params: LockerQueryParams
-): Promise<Locker[] | null> => {
+): Promise<ApiResponse<Locker[] | null>> => {
   const filePath: string | undefined = process.env.FILE_LOCKER_PATH;
   if (!filePath) {
     throw new Error("File lockers path is not defined in the .env file");
@@ -21,101 +23,18 @@ const getLockers = async (
 
     const transformOccupied =
       (isOccupied as unknown as string) === "false" ? false : true;
+    lockerList =
+      applyFilters(lockerList, [
+        (locker) => status === void 0 || locker.status === status,
+        (locker) => bloqId === void 0 || locker.bloqId === bloqId,
+        (locker) =>
+          isOccupied === void 0 || locker.isOccupied == transformOccupied,
+      ]) ?? [];
 
-    if (
-      bloqId !== undefined &&
-      transformOccupied !== undefined &&
-      status !== undefined
-    ) {
-      lockerList = lockerList.filter((locker) => {
-        return (
-          locker.bloqId === bloqId &&
-          locker.status === status &&
-          transformOccupied === locker.isOccupied
-        );
-      });
-      return lockerList;
-    } else if (
-      bloqId !== undefined &&
-      transformOccupied === undefined &&
-      status !== undefined
-    ) {
-      lockerList = lockerList.filter((locker) => {
-        return locker.bloqId === bloqId && locker.status === status;
-      });
-      return lockerList;
-    } else if (
-      bloqId === undefined &&
-      transformOccupied !== undefined &&
-      status !== undefined
-    ) {
-      lockerList = lockerList.filter((locker) => {
-        return (
-          locker.isOccupied === transformOccupied && locker.status === status
-        );
-      });
-      return lockerList;
-    } else if (
-      bloqId !== undefined &&
-      transformOccupied !== undefined &&
-      status === undefined
-    ) {
-      lockerList = lockerList.filter((locker) => {
-        return (
-          locker.isOccupied === transformOccupied && locker.bloqId === bloqId
-        );
-      });
-      return lockerList;
-    } else if (
-      bloqId == undefined &&
-      transformOccupied === undefined &&
-      status !== undefined
-    ) {
-      lockerList = lockerList.filter((locker) => {
-        return locker.status === status;
-      });
-      return lockerList;
-    } else if (
-      bloqId == undefined &&
-      transformOccupied !== undefined &&
-      status === undefined
-    ) {
-      lockerList = lockerList.filter((locker) => {
-        return locker.isOccupied === transformOccupied;
-      });
-      return lockerList;
-    } else {
-      return lockerList ?? [];
-    }
+    return { success: false, data: lockerList };
   } catch (error) {
     throw new Error(`Error reading file : ${error}`);
   }
 };
-
-function filterLockers(
-  lockerList: Locker[],
-  bloqId: string,
-  status: LockerStatus,
-  transformOccupied: boolean
-) {
-  return lockerList.filter((locker) => {
-    // Define initial condition to always return true
-    let condition = true;
-
-    // Add conditions based on provided parameters
-    if (bloqId !== undefined) {
-      condition = condition && locker.bloqId === bloqId;
-    }
-    if (status !== undefined) {
-      condition = condition && locker.status === status;
-    }
-    if (transformOccupied !== undefined) {
-      condition = condition && locker.isOccupied === transformOccupied;
-    }
-
-    // Return true only if all conditions are met
-    return condition;
-  });
-}
 
 export { getLockers };
