@@ -1,4 +1,4 @@
-import { LockerStatus } from "@enums/enum";
+import { LockerStatus, RentSize } from "@enums/enum";
 import { z } from "zod";
 
 const postBloqRequest = z.object({
@@ -13,12 +13,14 @@ const postLockerRequest = z.object({
 });
 
 const postRentRequest = z.object({
-  lockerId: z.string().uuid(),
+  lockerId: z.string().uuid().nullable(),
   weight: z.number().nonnegative(),
+  size: z.nativeEnum(RentSize),
 });
 
 type BloqRequest = z.infer<typeof postBloqRequest>;
 type LockerRequest = z.infer<typeof postLockerRequest>;
+type RentRequest = z.infer<typeof postRentRequest>;
 
-export type { BloqRequest, LockerRequest };
-export { postBloqRequest, postLockerRequest };
+export type { BloqRequest, LockerRequest, RentRequest };
+export { postBloqRequest, postLockerRequest, postRentRequest };
