@@ -1,18 +1,31 @@
 # bloqit-challenge
 
-This is the code challenge i did for Bloq.it, where i add to create a crud for 3 entities bloq, locker and rent
-Where a bloq has multiple lockers and a locker can have multiple rents
+This document outlines the code challenge completed for Bloq.it, involving the creation of a CRUD (Create, Read, Update, Delete) application for three entities:
 
-Basically here i decided that it made sense for me that a locker can't be used in a rent, if its already being used by another one
-so only after a rent has had an update on it's status to delivered, i allowed a another one to be associated to it and reset the locker to be un occupied
+- Bloq
+- Locker
+- Rent
 
-So to get started we need to run the following commands
+Relationships:
 
-npm i to install all the dependencies we have
-npm run build to prepare the tsconfig
-npm start so we can start the application
-npm run dev to run nodemon
-npm run test to run all tests that exist pre entity
+A Bloq can have multiple Lockers.
+A Locker can be associated with multiple Rents (one at a time).
+Constraints:
 
+A Locker cannot be used in a new Rent if it's already in use by another Rent.
+Only after a Rent's status is updated to "delivered," the associated Locker becomes available for new Rents.
+Prerequisites:
 
-Made with Express, Typescript and <3
+To run the application, follow these steps:
+
+Install dependencies: 
+1. npm i
+2. Prepare TypeScript configuration: npm run build
+3. Start the application: npm start (for production)
+4. Start the application with Nodemon (for development): npm run dev
+5. Run existing tests: npm run test
+
+Technology Stack:
+- Express.js (web framework)
+- TypeScript (typed superset of JavaScript)
+- and a bit of dedication
