@@ -26,6 +26,6 @@ Install dependencies:
 5. Run existing tests: npm run test
 
 Technology Stack:
-- Express.js (web framework)
-- TypeScript (typed superset of JavaScript)
-- and a bit of dedication
+- Express.js
+- TypeScript
+
