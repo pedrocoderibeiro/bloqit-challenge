@@ -1,5 +1,5 @@
 import { Bloq } from "@entities/bloq.model";
-import { GetError } from "@enums/error";
+import { GetError } from "@enums/index";
 import * as dotenv from "dotenv";
 import * as fs from "fs";
 import { ApiResponse } from "src/types/response.type";

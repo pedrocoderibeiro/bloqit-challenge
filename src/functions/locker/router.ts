@@ -1,13 +1,11 @@
-import express, { Request, Response, NextFunction } from "express";
+import express from "express";
 import { LockerController } from "./controller";
+import { validateQueryParams, validateSchema } from "src/helpers/validator";
 import {
-  validateBloq,
-  validateQueryParams,
-  validateSchema,
-} from "../../helpers/validator";
-import { lockerQueryParams } from "../../schemas/getLockerSchema";
-import { postLockerRequest } from "src/schemas/postSchema";
-import { putLockerRequestSchema } from "src/schemas/putSchema";
+  putLockerRequestSchema,
+  postLockerRequest,
+  lockerQueryParams,
+} from "@schemas/index";
 
 const lockerRouter = express.Router();
 

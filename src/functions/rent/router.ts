@@ -1,9 +1,11 @@
-import express, { Request, Response, NextFunction } from "express";
+import express from "express";
 import { RentController } from "./controller";
 import { validateQueryParams, validateSchema } from "@validators/validator";
-import { putRentRequestSchema } from "src/schemas/putSchema";
-import { postRentRequest } from "src/schemas/postSchema";
-import { rentQueryParams } from "src/schemas/getSchema";
+import {
+  rentQueryParams,
+  postRentRequest,
+  putRentRequestSchema,
+} from "@schemas/index";
 
 const rentRouter = express.Router();
 

@@ -49,7 +49,6 @@ const validateWeightSize = (data: RentRequest, ctx: RefinementCtx) => {
 };
 
 const putBloqRequestSchema = z.object({
-  id: z.string().uuid(),
   title: z.string().min(3),
   address: z.string().min(3),
 });

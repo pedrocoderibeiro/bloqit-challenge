@@ -1,9 +1,8 @@
 import express from "express";
 import { BloqController } from "./controller";
 import { validateSchema } from "src/helpers/validator";
-import { postBloqRequest } from "src/schemas/postBloqRequestSchema";
-import { bloqQueryParams } from "src/schemas/getSchema";
-import { putBloqRequestSchema } from "src/schemas/putSchema";
+import { bloqQueryParams } from "@schemas/getSchema";
+import { putBloqRequestSchema, postBloqRequest } from "@schemas/index";
 
 const bloqRouter = express.Router();
 

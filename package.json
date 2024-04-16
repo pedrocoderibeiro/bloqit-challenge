@@ -2,11 +2,11 @@
   "name": "bloqit-challenge",
   "version": "1.0.0",
   "description": "",
-  "main": "main.js",
+  "main": "server.js",
   "scripts": {
     "build": "npx tsc",
-    "start": "node dist/main.js",
-    "dev": "nodemon src/main.ts",
+    "start": "node dist/server.js",
+    "dev": "nodemon src/server.ts",
     "test": "jest --watchAll --collectCoverage"
   },
   "keywords": [],

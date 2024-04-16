@@ -8,7 +8,8 @@
     "paths": {
       "@entities/*": ["src/entities/*"],
       "@validators/*": ["src/helpers/*"],
-      "@enums/*": ["src/enums/*"]
+      "@enums/*": ["src/enums/*"],
+      "@schemas/*": ["src/schemas/*"]
     },
     "outDir": "./dist",
     "esModuleInterop": true /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */,

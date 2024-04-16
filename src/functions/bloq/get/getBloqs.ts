@@ -1,4 +1,4 @@
-import { applyFilters } from "@validators/filter";
+import { applyFilters } from "src/helpers/filter";
 import { Bloq } from "../../../entities";
 import * as dotenv from "dotenv";
 import * as fs from "fs";

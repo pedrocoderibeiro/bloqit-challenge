@@ -3,7 +3,7 @@ import { PutBloqRequest } from "src/schemas/putSchema";
 import * as dotenv from "dotenv";
 import * as fs from "fs";
 import { ApiResponse } from "src/types/response.type";
-import { GetError } from "@enums/error";
+import { GetError } from "@enums/index";
 dotenv.config();
 
 const putBloq = async (
