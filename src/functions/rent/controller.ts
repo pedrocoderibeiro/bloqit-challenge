@@ -46,8 +46,15 @@ class rentController {
             break;
           case PutRentError.Conflict:
             res
-              .status(404)
+              .status(409)
               .send("Dropoff date cannot be superior to pickup date");
+            break;
+          case PutRentError.LockerOccupied:
+            res
+              .status(409)
+              .send(
+                "Locker already has another rent associated to it that needs to be picked up"
+              );
             break;
           default:
             break;

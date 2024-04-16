@@ -7,6 +7,7 @@ enum PutRentError {
   RentNotFound = "rent-not-found",
   LockerNotFound = "locker-not-found",
   Conflict = "conflict",
+  LockerOccupied = "locker-occupied",
 }
 
 enum PutLockerError {

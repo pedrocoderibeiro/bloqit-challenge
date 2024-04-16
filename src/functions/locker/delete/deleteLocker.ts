@@ -24,7 +24,7 @@ const deleteLocker = async (
     const lockerIndex = lockerList.findIndex((locker) => locker.id === id);
 
     if (lockerIndex === -1) {
-      return { success: false, data: DeleteLockerError.NotFound }; // Return null for Express to handle 404
+      return { success: false, data: DeleteLockerError.NotFound };
     }
 
     const locker = lockerList[lockerIndex]!;
@@ -39,7 +39,7 @@ const deleteLocker = async (
     if (associatedRents.length > 0) {
       return { success: false, data: DeleteLockerError.Conflict };
     }
-    const deletedLocker = lockerList.splice(lockerIndex, 1)[0]; // Remove bloq and return it
+    const deletedLocker = lockerList.splice(lockerIndex, 1)[0];
 
     await fs.promises.writeFile(
       filePath,
@@ -47,7 +47,7 @@ const deleteLocker = async (
       "utf8"
     );
 
-    return { success: true, data: deletedLocker }; // Return the deleted locker object (optional)
+    return { success: true, data: deletedLocker };
   } catch (err) {
     throw new Error(`Error deleting locker : ${err}`);
   }

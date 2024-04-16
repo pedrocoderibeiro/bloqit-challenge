@@ -41,12 +41,49 @@ const putRent = async (
       return { success: false, data: PutRentError.LockerNotFound };
     }
 
+    const occupiedLoocker = rentList.find(
+      (rent) =>
+        rent.lockerId === body.lockerId &&
+        rent.id !== id &&
+        rent.status !== RentStatus.DELIVERED &&
+        locker?.isOccupied
+    );
+
+    if (occupiedLoocker) {
+      return { success: false, data: PutRentError.LockerOccupied };
+    }
+
+    const foundLockerIndex = lockerList.findIndex(
+      (locker) => locker.id === body.lockerId
+    );
+
+    if (body.status === RentStatus.WAITING_DROPOFF) {
+      lockerList[foundLockerIndex].isOccupied = true;
+
+      await fs.promises.writeFile(
+        fileLockerPath,
+        JSON.stringify(lockerList, null, 2),
+        "utf8"
+      );
+    }
+
+    if (body.status === RentStatus.DELIVERED) {
+      lockerList[foundLockerIndex].isOccupied = false;
+
+      await fs.promises.writeFile(
+        fileLockerPath,
+        JSON.stringify(lockerList, null, 2),
+        "utf8"
+      );
+    }
+
     let updateRent: Rent = {
       id,
       lockerId: body.lockerId,
       size: body.size,
       status: body.status,
       weight: body.weight,
+      updatedAt: new Date(),
       ...(body.status === RentStatus.WAITING_PICKUP
         ? { droppedOffAt: new Date() }
         : {}),

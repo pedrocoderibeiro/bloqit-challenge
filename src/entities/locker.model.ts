@@ -5,6 +5,7 @@ type Locker = {
   bloqId: String;
   status: LockerStatus;
   isOccupied: boolean;
+  updatedAt?: Date;
 };
 
 export type { Locker };

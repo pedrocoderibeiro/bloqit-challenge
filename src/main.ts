@@ -17,5 +17,7 @@ app.use("/api/locker", lockerRouter);
 app.use("/api/rent", rentRouter);
 
 app.listen(port, () => {
-  console.log(`[server]: Server is running at http://localhost:${port}`);
+  console.log(
+    `[server]: Bloq Code Challenge is running at http://localhost:${port}`
+  );
 });

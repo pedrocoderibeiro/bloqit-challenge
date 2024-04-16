@@ -19,9 +19,16 @@
     "skipLibCheck": true /* Skip type checking all .d.ts files. */
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", ".vscode"],
+  "exclude": [
+    "node_modules",
+    ".vscode",
+    "./dist",
+    "__tests__",
+    "jest.config.js"
+  ],
   "ts-node": {
     // Do not forget to `npm i -D tsconfig-paths`
-    "require": ["tsconfig-paths/register"]
+    "require": ["tsconfig-paths/register"],
+    "transpileOnly": true
   }
 }

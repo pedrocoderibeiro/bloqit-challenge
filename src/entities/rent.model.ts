@@ -7,6 +7,7 @@ type Rent = {
   size: RentSize;
   status: RentStatus;
   createdAt?: Date;
+  updatedAt?: Date;
   droppedOffAt?: Date;
   pickedUpAt?: Date;
 };

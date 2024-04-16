@@ -37,7 +37,7 @@ const putLocker = async (
     if (!bloq) {
       return { success: false, data: PutLockerError.BloqNotFound };
     }
-    const updatedLocker = { ...lockerList[lockerIndex], ...body }; // Merge updates
+    const updatedLocker = { ...lockerList[lockerIndex], ...body };
     lockerList[lockerIndex] = updatedLocker;
 
     await fs.promises.writeFile(
