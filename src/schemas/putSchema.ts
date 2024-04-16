@@ -8,12 +8,6 @@ type RentRequest = {
   size: RentSize;
 };
 
-type LockerRequest = {
-  bloqId: string;
-  status: LockerStatus;
-  isOccupied: boolean;
-};
-
 const validateLockerId = (data: RentRequest, ctx: RefinementCtx) => {
   if (data.lockerId === null && data.status !== RentStatus.CREATED) {
     ctx.addIssue({
@@ -74,4 +68,10 @@ type PutLockerRequest = z.infer<typeof putLockerRequestSchema>;
 type PutRentRequest = z.infer<typeof putRentRequestSchema>;
 
 export type { PutBloqRequest, PutLockerRequest, PutRentRequest };
-export { putBloqRequestSchema, putLockerRequestSchema, putRentRequestSchema };
+export {
+  putBloqRequestSchema,
+  putLockerRequestSchema,
+  putRentRequestSchema,
+  validateLockerId,
+  validateWeightSize,
+};

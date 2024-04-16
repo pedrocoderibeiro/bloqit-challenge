@@ -28,22 +28,19 @@ describe("Bloq endpoint", () => {
     jest.clearAllMocks();
   });
   it("GET BLOQ - Success (mocked data)", async () => {
-    const mockData = [
-      {
-        id: "7e4f191f-b8e8-4d1b-a98d-cfe24b1e4f2e",
-        title: "Seixal",
-        address: "rua",
-      },
-    ];
+    const mockData = {
+      id: "7e4f191f-b8e8-4d1b-a98d-cfe24b1e4f2e",
+      title: "Seixal",
+      address: "rua",
+    };
     (getBloq as jest.Mock).mockReturnValue(mockData);
 
     const result = await getBloq("7e4f191f-b8e8-4d1b-a98d-cfe24b1e4f2e");
 
     expect(result).toBe(mockData);
   });
-  it("GET BLOQ - Not found (mocked data)", async () => {
-    const mockData: Bloq[] = [];
-    (getBloq as jest.Mock).mockReturnValue(mockData);
+  it("GET BLOQ - Not found", async () => {
+    (getBloq as jest.Mock).mockReturnValue({});
 
     const result = await getBloq("7e4f191f-b8e8-4d1b-a98d");
 

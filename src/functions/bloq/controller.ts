@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
 import { getBloq } from "./get/getBloq";
 import { getBloqs } from "./get/getBloqs";
-import { QueryParams } from "src/types/queryParams.type";
 import postBloq from "./post/postBloq";
 import putBloq from "./put/putBloq";
 import deleteBloq from "./delete/deleteBloq";
 import { Bloq } from "@entities/bloq.model";
 import { GetError } from "@enums/error";
+import { BloqQueryParams } from "@schemas/getSchema";
 
 class bloqController {
   getBloq = async (req: Request, res: Response) => {
@@ -36,7 +36,7 @@ class bloqController {
     res.send(response.data);
   };
   getBloqs = async (req: Request, res: Response) => {
-    const queryParams: QueryParams = req.query as QueryParams;
+    const queryParams: BloqQueryParams = req.query as BloqQueryParams;
     const response = await getBloqs(queryParams);
     res.send(response.data);
   };
