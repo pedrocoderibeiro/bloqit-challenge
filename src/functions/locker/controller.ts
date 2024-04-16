@@ -1,9 +1,7 @@
 import { Request, Response } from "express";
-
 import getLocker from "./get/getLocker";
-import { LockerQueryParams } from "src/schemas/getLockerSchema";
+import { LockerQueryParams } from "@schemas/index";
 import { getLockers } from "./get/getLockers";
-
 import postLocker from "./post/postLocker";
 import putLocker from "./put/putLocker";
 import deleteLocker from "./delete/deleteLocker";

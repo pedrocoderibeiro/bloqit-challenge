@@ -1,4 +1,4 @@
-import { LockerRequest } from "src/schemas/postSchema";
+import { LockerRequest } from "@schemas/index";
 import { v4 as uuidv4 } from "uuid";
 import * as dotenv from "dotenv";
 import * as fs from "fs";

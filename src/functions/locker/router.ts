@@ -1,6 +1,6 @@
 import express from "express";
 import { LockerController } from "./controller";
-import { validateQueryParams, validateSchema } from "src/helpers/validator";
+import { validateQueryParams, validateSchema } from "@validators/validator";
 import {
   putLockerRequestSchema,
   postLockerRequest,

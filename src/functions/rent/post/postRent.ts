@@ -1,5 +1,5 @@
 import { Rent } from "@entities/rent.model";
-import { RentRequest } from "src/schemas/postSchema";
+import { RentRequest } from "@schemas/postSchema";
 import { v4 as uuidv4 } from "uuid";
 import * as dotenv from "dotenv";
 import * as fs from "fs";
@@ -37,7 +37,7 @@ const postRent = async (body: RentRequest): Promise<ApiResponse<Rent>> => {
           console.error("Error writing file:", writeErr);
           return;
         }
-        console.log("Data added successfully!");
+        console.info("Data added successfully!");
       }
     );
     return { success: true, data: newRent };

@@ -1,9 +1,9 @@
 import { Locker, Bloq } from "@entities/index";
-import { PutLockerRequest } from "src/schemas/putSchema";
+import { PutLockerRequest } from "@schemas/putSchema";
 import * as dotenv from "dotenv";
 import * as fs from "fs";
 import { ApiResponse } from "src/types/response.type";
-import { GetError, PutLockerError } from "@enums/error";
+import { PutLockerError } from "@enums/error";
 
 dotenv.config();
 

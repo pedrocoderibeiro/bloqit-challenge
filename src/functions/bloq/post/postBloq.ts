@@ -1,5 +1,5 @@
 import { Bloq } from "@entities/bloq.model";
-import { BloqRequest } from "src/schemas/postBloqRequestSchema";
+import { BloqRequest } from "@schemas/index";
 import { v4 as uuidv4 } from "uuid";
 import * as dotenv from "dotenv";
 import * as fs from "fs";
@@ -29,7 +29,7 @@ const postBloq = async (body: BloqRequest): Promise<ApiResponse<Bloq>> => {
           console.error("Error writing file:", writeErr);
           return;
         }
-        console.log("Data added successfully!");
+        console.info("Data added successfully!");
       }
     );
     return { success: true, data: newBloq };

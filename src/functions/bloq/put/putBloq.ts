@@ -1,5 +1,5 @@
-import { Bloq } from "../../../entities";
-import { PutBloqRequest } from "src/schemas/putSchema";
+import { Bloq } from "@entities/index";
+import { PutBloqRequest } from "@schemas/putSchema";
 import * as dotenv from "dotenv";
 import * as fs from "fs";
 import { ApiResponse } from "src/types/response.type";

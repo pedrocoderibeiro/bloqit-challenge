@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import getRent from "./get/getRent";
-import { RentQueryParams } from "src/schemas/getSchema";
+import { RentQueryParams } from "@schemas/index";
 import getRents from "./get/getRents";
 import postRent from "./post/postRent";
 import putRent from "./put/putRent";

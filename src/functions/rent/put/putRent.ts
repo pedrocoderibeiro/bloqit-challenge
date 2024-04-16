@@ -3,8 +3,7 @@ import { PutRentRequest } from "src/schemas/putSchema";
 import * as dotenv from "dotenv";
 import * as fs from "fs";
 import { ApiResponse } from "src/types/response.type";
-import { GetError, PutRentError } from "@enums/error";
-import { RentStatus } from "@enums/enum";
+import { RentStatus, PutRentError } from "@enums/index";
 
 dotenv.config();
 
